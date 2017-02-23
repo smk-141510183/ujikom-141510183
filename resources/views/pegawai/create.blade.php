@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.aa')
 
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="panel panel-primary">
                     <div class="panel-heading"><center>Tambah User</center></div>
                     <div class="panel-body">
@@ -81,7 +81,7 @@
                 </div>
             </div>
                 <!-- /.col-lg-6 -->
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="panel panel-primary">
                             <div class="panel-heading">Tambah Pegawai</div>
                                 <div class="panel-body">

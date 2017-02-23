@@ -1,26 +1,22 @@
-@extends('layouts.app')
+@extends('layouts.aa')
 @section('content')
 <?php $page = "Tabel Penggajian" ?>
 <div align="right">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading" align="center">{{$page}}</div>
-                <a href="{{route('penggajian.create')}}" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i></a>
+                <a href="{{route('penggajian.create')}}" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
                 <div class="panel-body" align="center">
 					<div class="table-responsive ">
-					<div class="table-responsive table-bordered">
+					<div class="table-responsive ">
 						<table class="table">
 							<thead >
 								<tr class="success">
 									<th>No.</th>
+									<th>Nama Pegawai</th>
 									<th>Tunjangan Pegawai</th>
 									<th>NIP Pegawai</th>
-									<th>Nama Pegawai</th>
-									<th>Jumlah Jam Lembur</th>
-									<th>Jumlah Uang Lembur</th>
-									<th>Gaji Pokok</th>
-									<th>Total Gaji</th>
-									<th colspan="3"><center>Opsi</center></th>
+									<th colspan="3"><center>Aksi</center></th>
 								</tr>
 							</thead>
 							<?php
@@ -29,24 +25,18 @@
 							<tbody>
 							@foreach($penggajian as $data)
 								<tr>
-								<?php 
-                                	$pegawai = $pegawai->where('id',$data->tunjangan_pegawai->pegawai_id)->first();
-                             	?>	<td>{{$no++}}</td>
-									<td>{{$data->tunjangan_pegawai_id}}</td>
-									<td>{{$pegawai->where('id',$data->tunjangan_pegawai->pegawai_id)->first()->nip}}</td>
-									<td>{{$pegawai->User->name}}</td>
-									<td>{{$data->jumlah_jam_lembur}}</td>
-									<td>{{$data->jumlah_uang_lembur}}</td>
-									<td>{{$data->gaji_pokok}}</td>
-									<td>{{$data->total_gaji}}</td>
-									<td align="right">
-                                    <a href="{{route('tunjanganpegawai.edit', $data->id)}}" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
+									<td>{{$no++}}</td>
+									<td>{{$users->name}}</td>
+									<td>{{$tunjangan->besaran_uang}}</td>
+									<td>{{$pegawai->nip}}</td>
+									<td align="right" class="action-web">
+									<a href="{{url('penggajian',$data->id)}}" class="btn btn-primary" title="Details"><i class="glyphicon glyphicon-folder-open"></i></a></td>
                                 </td>
 
                                 <td >
                                   <a data-toggle="modal" href="#delete{{ $data->id }}" class="btn btn-danger" title="Delete" data-toggle="tooltip"><i class="glyphicon glyphicon-trash"></i></a>
                                   @include('modals.delete', [
-                                    'url' => route('tunjanganpegawai.destroy', $data->id),
+                                    'url' => route('penggajian.destroy', $data->id),
                                     'model' => $data
                                   ])
                                 </td>

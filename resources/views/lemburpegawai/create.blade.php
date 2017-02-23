@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.aa')
 @section('content')
 <div class="col-md-6 col-md-offset-3">
     <div class="panel panel-default">
@@ -19,6 +19,11 @@
                                             <strong>{{ $errors->first('pegawai_id') }}</strong>
                                         </span>
                                     @endif
+                                    @if (isset($missing_count))
+                            <div style="width: 100%;color: red;text-align: center;">
+                                Tidak Memiliki Kategori Lembur<a href="{{url('kategorilembur/create')}}"> KLIK DISINI </a>
+                            </div>
+                            @endif
                                 </div>
                     </div>
                     <div class="form-group{{ $errors->has('jumlah_jam') ? ' has-error' : '' }}">
@@ -30,6 +35,7 @@
                                             <strong>{{ $errors->first('jumlah_jam') }}</strong>
                                         </span>
                                     @endif
+                                    
                                 </div>
                     </div>
                     <div class="form-group">

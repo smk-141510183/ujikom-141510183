@@ -45,12 +45,15 @@ class GolonganController extends Controller
     {
         $rules=['kode_golongan'=>'required|unique:golongans',
                 'nama_golongan'=>'required',
-                'besaran_uang'=>'required|numeric'];
+                'besaran_uang'=>'required|numeric',
+                'besaran_uang'=>'required|numeric|min:1'];
         $sms=['kode_golongan.required'=>'Harus Di Isi',
                 'kode_golongan.unique'=>'Tidak Boleh Sama',
                 'nama_golongan.required'=>'Harus Di Isi',
                 'besaran_uang.required'=>'Harus Diisi',
-                'besaran_uang.numeric'=>'Harus Angka'];
+                'besaran_uang.numeric'=>'Harus Angka',
+                'besaran_uang.min'=>'Angka Tidak Valid'
+                ];
         $valid=Validator::make(Input::all(),$rules,$sms);
         if ($valid->fails()) {
 

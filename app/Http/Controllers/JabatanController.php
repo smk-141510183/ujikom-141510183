@@ -45,12 +45,14 @@ class JabatanController extends Controller
     {
         $rules=['kode_jabatan'=>'required|unique:jabatans',
                 'nama_jabatan'=>'required',
-                'besaran_uang'=>'required|numeric'];
+                'besaran_uang'=>'required|numeric',
+                'besaran_uang'=>'required|numeric|min:1'];
         $sms=['kode_jabatan.required'=>'Harus Di Isi',
                 'kode_jabatan.unique'=>'Tidak Boleh Sama',
                 'nama_jabatan.required'=>'Harus Di Isi',
                 'besaran_uang.required'=>'Harus Di Isi',
-                'besaran_uang.numeric'=>'Harus Angka'
+                'besaran_uang.numeric'=>'Harus Angka',
+                'besaran_uang.min'=>'Angka Tidak Valid'
                 ];
         $valid=Validator::make(Input::all(),$rules,$sms);
         if ($valid->fails()) {

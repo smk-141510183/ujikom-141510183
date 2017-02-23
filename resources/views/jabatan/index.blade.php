@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.aa')
 @section('content')
 <?php $page = "Tabel Jabatan" ?>
 <div align="right">
 <div class="col-md-12">
 	<div class="panel panel-default">
 		<div class="panel-heading" align="center">{{$page}}</div>
-		<a href="{{route('jabatan.create')}}" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i></a>
+		<a href="{{route('jabatan.create')}}" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
 			<div class="panel-body">
 			  <div class="table-responsive table-bordered">
 				<table class="table">

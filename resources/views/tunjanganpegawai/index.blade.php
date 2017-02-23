@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.aa')
 @section('content')
 <?php $page = "Tabel Tunjangan Pegawai" ?>
 <div align="right">
@@ -13,14 +13,14 @@
 								<tr class="success">
 									<th>No.</th>
 									<th>Kode Tunjangan</th>
-									<th>NIP Pegawai</th>
+									<th>NIP Pegawai</th>		
 									<th>Nama Pegawai</th>
 									<th>Besar Tunjangan</th>
-									<th colspan="3"><center>Opsi</center></th>
+									<th colspan="3"><center>Aksi</center></th>
 								</tr>
 							</thead>
 							<?php
-							 $no=1;
+								$no=1;
 							?>
 							<tbody>
 							@foreach($tunjangan_pegawai as $data)

@@ -1,14 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.aa')
 @section('content')
 <?php $page="Tabel Pegawai"?>
 <div align="right">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading" align="center">{{$page}}</div>
-                <a href="{{route('pegawai.create')}}" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i></a>
+                <a href="{{route('pegawai.create')}}" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
                 <div class="panel-body" align="center">
 						<table class="table">
-							<thead >
+							<thead>
 								<tr class="success">
 									<th>No.</th>
 									<th>NIP</th>
@@ -17,7 +17,7 @@
 									<th>Jabatan</th>
 									<th>Golongan</th>
 									<th>Photo</th>
-									<th colspan="3"><center>Opsi</center></th>
+									<th colspan="3"><center>Aksi</center></th>
 								</tr>
 							</thead>
 							<?php
@@ -32,7 +32,7 @@
 									<td>{{$data->User->email}}</td>
 									<td>{{$data->jabatan->nama_jabatan}}</td>
 									<td>{{$data->golongan->nama_golongan}}</td>
-									<td><img src="assets/image
+									<td><img src="/assets/image
 									/{{$data->photo}}" width="70" height="70"></td>
 									<td align="right">
                                     <a href="{{route('pegawai.edit', $data->id)}}" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>

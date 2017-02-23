@@ -53,13 +53,16 @@ class KategoriLemburController extends Controller
         $rules = ['kode_lembur' => 'required|unique:kategori_lemburs',
                   'jabatan_id' => 'required',
                   'golongan_id' => 'required',
-                  'besaran_uang' => 'required|numeric'];
+                  'besaran_uang' => 'required|numeric',
+                  'besaran_uang' => 'required|numeric|min:1'
+                  ];
         $sms = ['kode_lembur.required' => 'Harus Diisi',
                 'kode_lembur.unique' => 'Data Sudah Ada',
                 'jabatan_id.required' => 'Harus Diisi',
                 'golongan_id.required' => 'Harus Diisi',
                 'besaran_uang.required' => 'Harus Diisi',
-                'besaran_uang.numeric' => 'Harus Angka'];
+                'besaran_uang.numeric' => 'Harus Angka',
+                'besaran_uang.min' => 'Angka Tidak Valid'];
         $valid=Validator::make(Input::all(),$rules,$sms);
         if ($valid->fails()) {
 

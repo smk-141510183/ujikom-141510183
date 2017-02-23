@@ -17,10 +17,6 @@ class TunjanganPegawaiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('SA');
-    }
     public function index()
     {
         $tunjangan_pegawai = tunjangan_pegawai::with('tunjangan')->get();
@@ -54,24 +50,19 @@ class TunjanganPegawaiController extends Controller
         $pegawai = pegawai::with('User')->get();
         $tunjangan_pegawai = Request::all();
         
-        $rules = ['pegawai_id' => 'required|unique:tunjangan_pegawais',
-                  'kode_tunjangan_id' => 'required|unique:tunjangan_pegawais'  ];
+        $rules = ['pegawai_id' => 'required|unique:tunjangan_pegawais'];
         $sms = ['pegawai_id.unique' => 'Data Sudah Ada Tidak Boleh Sama',
-                'pegawai_id.required' => 'Harus Diisi',
-                'kode_tunjangan_id.unique' => 'Data Sudah Ada Tidak Boleh Sama',
-                'kode_tunjangan_id.required' => 'Harus Diisi',];
+                'pegawai_id.required' => 'Harus Diisi',];
         $valid=Validator::make(Input::all(),$rules,$sms);
-        if ($valid->fails()) {
-
-            alert()->error('Data Gagal Disimpan !!!');  
+        if ($valid->fails()) 
+        {
+            alert()->error('Data Belum Disimpan !!!');  
             return redirect('tunjanganpegawai/create')
             ->withErrors($valid)
             ->withInput();
         }
         else
         {
-
-
         alert()->success('Data Berhasil Disimpan');
         $pegawai = pegawai::where('id',$tunjangan_pegawai['pegawai_id'])->first();
         $check = tunjangan::where('jabatan_id',$pegawai->jabatan_id)->where('golongan_id',$pegawai->golongan_id)->first();

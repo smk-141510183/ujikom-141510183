@@ -55,7 +55,8 @@ class TunjanganController extends Controller
             'golongan_id' => 'required',
             'status' => 'required',
             'jumlah_anak' => 'required|numeric',
-            'besaran_uang' => 'required|numeric'];
+            'besaran_uang' => 'required|numeric',
+            'besaran_uang' => 'required|numeric|min:1'];
         $sms = ['kode_tunjangan.required' => 'Harus Diisi',
                 'kode_tunjangan.unique' => 'Data Sudah Ada',
                 'jumlah_anak.numeric' => 'Harus Angka',
@@ -64,7 +65,8 @@ class TunjanganController extends Controller
                 'golongan_id.required' => 'Harus Diisi',
                 'status.required' => 'Harus Diisi',
                 'jumlah_anak.required' => 'Harus Diisi',
-                'besaran_uang.required' => 'Harus Diisi'
+                'besaran_uang.required' => 'Harus Diisi',
+                'besaran_uang.min' => 'Angka Tidak Valid'
                 ];
         $valid=Validator::make(Input::all(),$rules,$sms);
         if ($valid->fails()) {
@@ -76,6 +78,7 @@ class TunjanganController extends Controller
         }
         else
         {
+        alert()->success('Data Berhasil Disimpan');
         tunjangan::create($tunjangan);
         return redirect('tunjangan');
         }

@@ -25,8 +25,9 @@ class LemburPegawaiController extends Controller
     public function index()
     {
         // dd($jabatans);
-        $lembur_pegawai = lembur_pegawai::with('pegawai')->get();
-        $lembur_pegawai = lembur_pegawai::with('kategori_lembur')->get();
+        $lembur_pegawai=lembur_pegawai::selectRaw("sum(lembur_pegawais.jumlah_jam) as jumlah_jam,lembur_pegawais.kode_lembur_id as kode_lembur_id,lembur_pegawais.pegawai_id as pegawai_id")->GroupBy('kode_lembur_id','pegawai_id')->get();
+        // $lembur_pegawai = lembur_pegawai::with('pegawai')->get();
+        // $lembur_pegawai = lembur_pegawai::with('kategori_lembur')->get();
 
         $users = User::all();
         $jabatans = jabatan::all();
@@ -57,10 +58,13 @@ class LemburPegawaiController extends Controller
         
         $lembur_pegawai = Request::all();
         $rules = ['pegawai_id' => 'required',
-                  'jumlah_jam' => 'required|numeric'];
+                  'jumlah_jam' => 'required|numeric',
+                  'jumlah_jam' => 'required|numeric|min:1'];
         $sms = ['pegawai_id.required' => 'Harus Diisi',
                 'jumlah_jam.required' => 'Harus Diisi',
-                'jumlah_jam.numeric' => 'Harus Angka'];
+                'jumlah_jam.numeric' => 'Harus Angka',
+                'jumlah_jam.min' => 'Angka Tidak Valid',
+                ];
         $valid=Validator::make(Input::all(),$rules,$sms);
         if ($valid->fails()) {
 
@@ -139,6 +143,6 @@ class LemburPegawaiController extends Controller
     {
         lembur_pegawai::find($id)->delete();
         alert()->success('Data Terhapus');
-        return redirect('lembur_pegawai');
+        return redirect('lemburpegawai');
     }
 }
