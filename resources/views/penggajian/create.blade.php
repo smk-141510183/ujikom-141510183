@@ -22,13 +22,8 @@
                                 @endif
                                 @if (isset($_GET['errors_match']))
                             <span class="help-block">
-                                    <strong>Pegawai sudah melakukan penggajian bulan ini</strong>
+                                    <strong>Pegawai Sudah Mengambil Gaji</strong>
                             </span>
-                            @endif
-                            @if (isset($missing_count))
-                            <div style="width: 100%;color: red;text-align: center;">
-                                Tunjangan Pegawai InI Tidak Ada <a href="{{url('tunjanganpegawai/create')}}">disini</a>
-                            </div>
                             @endif
                                 </div>
                     </div>

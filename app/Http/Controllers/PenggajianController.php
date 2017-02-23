@@ -21,20 +21,25 @@ class PenggajianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct ()
-    {
-        $this->middleware('SA');
+    public function __construct (){
+        $this->middleware('auth');
     }
     public function index()
     {
         $penggajian = penggajian::with('tunjangan_pegawai')->get();
-        $tunjangan_pegawai = tunjangan_pegawai::with('tunjangan')->first();
 
+        $tunjangan_pegawai = tunjangan_pegawai::with('tunjangan')->first();
+        if(!isset($tunjangan_pegawai))
+        {
+            return view('penggajian.index',compact('penggajian','users','pegawai','tunjangan_pegawai','tunjangan'));
+        }
+        else
+        {
         $tunjangan = tunjangan::where('id',$tunjangan_pegawai->kode_tunjangan_id)->first();
         $pegawai = pegawai::with('User')->first();
         $users = User::where('id',$pegawai['user_id'])->first();
         $penggajian = penggajian::all();
-        
+        }
         return view('penggajian.index',compact('penggajian','users','pegawai','tunjangan_pegawai','tunjangan'));
     }
 
@@ -58,11 +63,10 @@ class PenggajianController extends Controller
     public function store(Request $request)
     {
         $penggajian = Request::all();
-        //carbon
+
         $now = Carbon::now();
             $kode_tunjangan_id = tunjangan_pegawai::where('pegawai_id', $penggajian['pegawai_id'])->first();
             $tunjangan_pegawai = tunjangan_pegawai::where('pegawai_id',$penggajian['pegawai_id'])->first();
-            //batascarbon
     if($tunjangan_pegawai==null)
         {
             $missing_count=true;

@@ -16,13 +16,14 @@
 									<th>Nama Pegawai</th>
 									<th>Tunjangan Pegawai</th>
 									<th>NIP Pegawai</th>
-									<th colspan="3"><center>Aksi</center></th>
+									<th colspan="3"><center>Opsi</center></th>
 								</tr>
 							</thead>
 							<?php
 							$no=1;
 							?>
 							<tbody>
+							
 							@foreach($penggajian as $data)
 								<tr>
 									<td>{{$no++}}</td>
