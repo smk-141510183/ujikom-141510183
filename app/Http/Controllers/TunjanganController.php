@@ -19,7 +19,8 @@ class TunjanganController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('ADM');
+        
+        $this->middleware('SA');
     }
     public function index()
     {

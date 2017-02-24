@@ -31,6 +31,7 @@
                                     <option value="">Pilih</option>
                                     <option value="Pegawai">Pegawai</option>
                                     <option value="HRD">HRD</option>
+                                    <option value="Administrasi">Administrasi</option>
                                     </select>
 
                                     @if ($errors->has('permission'))

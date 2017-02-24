@@ -17,7 +17,8 @@ class GolonganController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('HRD');
+        
+        $this->middleware('SA');
     }
     public function index()
     {

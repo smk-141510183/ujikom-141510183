@@ -59,9 +59,9 @@ class ApiController extends Controller
                                 'golongan.nama_golongan as golongan',
                                 'golongan.besaran_uang as uanggolongan',
                                 DB::raw('(jabatans.besaran_uang + golongans.besaran_uang) as gaji'))
-                    ->join('pegawai', 'pegawai.user_id', '=', 'users.id')
-                    ->join('jabatan', 'pegawai.jabatan_id', '=', 'jabatans.id')
-                    ->join('golongan', 'pegawai.golongan_id', '=', 'golongans.id')
+                    ->join('pegawai', 'pegawai.user_id', '=', 'user.id')
+                    ->join('jabatan', 'pegawai.jabatan_id', '=', 'jabatan.id')
+                    ->join('golongan', 'pegawai.golongan_id', '=', 'golongan.id')
                     // ->join('tunjangan_pegawais' , 'tunjangan_pegawais.kode_tunjangan_id', '=', 'tunjangans.id')
                     // ->join('tunjangans', 'tunjangans.id', '=', 'tunjangan_pegawais.kode_tunjangan_id')
                     ->where('users.id', $user->id)
