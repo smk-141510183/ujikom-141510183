@@ -16,6 +16,11 @@ class KategoriLemburController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('ADM');
+    }
     public function index()
     {
         $kategori_lembur = kategori_lembur::with('jabatan')->get();

@@ -29,6 +29,12 @@ class userSeeder extends Seeder
             'email'=>'hrd@gmail.com',
             'password'=> bcrypt('hrd12345'),
             ]);
+        User::insert([
+            'name'=>'Administrasi',
+            'permission'=>'Administrasi',
+            'email'=>'adm@gmail.com',
+            'password'=> bcrypt('adm12345'),
+            ]);
 
     }
 }

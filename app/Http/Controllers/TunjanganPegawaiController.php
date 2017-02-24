@@ -17,6 +17,11 @@ class TunjanganPegawaiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('ADM');
+    }
     public function index()
     {
         $tunjangan_pegawai = tunjangan_pegawai::with('tunjangan')->get();

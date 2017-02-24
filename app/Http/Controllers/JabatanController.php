@@ -16,7 +16,8 @@ class JabatanController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('SA');
+        $this->middleware('auth');
+        $this->middleware('HRD');
     }
     public function index()
     {

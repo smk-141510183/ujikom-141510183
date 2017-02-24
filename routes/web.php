@@ -33,3 +33,23 @@ Route::resource('lemburpegawai','LemburPegawaiController');
 Route::resource('tunjangan','TunjanganController');
 Route::resource('tunjanganpegawai','TunjanganPegawaiController');
 Route::resource('penggajian','PenggajianController');
+
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+    //return $request->user();
+//});
+
+Route::group(['middleware' => ['api']], function () {
+    Route::post('register', 'ApiController@register');
+    Route::post('login', 'ApiController@login');
+    Route::group(['middleware' => 'jwt-auth'], function () {
+    	Route::post('get_user_details', 'ApiController@get_user_details');
+    });
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
