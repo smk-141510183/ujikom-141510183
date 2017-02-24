@@ -7,10 +7,11 @@ use Request;
 use App\pegawai;
 use App\kategori_lembur;
 use App\lembur_pegawai;
+use App\jabatan;
 use App\User;
 use Input;
 use Validator;
-use App\jabatan;
+use Carbon\Carbon;
 class LemburPegawaiController extends Controller
 {
     /**
@@ -18,16 +19,11 @@ class LemburPegawaiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('SA');
-    }
     public function index()
     {
         // dd($jabatans);
-        $lembur_pegawai=lembur_pegawai::selectRaw("sum(lembur_pegawais.jumlah_jam) as jumlah_jam,lembur_pegawais.kode_lembur_id as kode_lembur_id,lembur_pegawais.pegawai_id as pegawai_id")->GroupBy('kode_lembur_id','pegawai_id')->get();
-        // $lembur_pegawai = lembur_pegawai::with('pegawai')->get();
-        // $lembur_pegawai = lembur_pegawai::with('kategori_lembur')->get();
+        $lembur_pegawai = lembur_pegawai::with('pegawai')->get();
+        $lembur_pegawai = lembur_pegawai::with('kategori_lembur')->get();
 
         $users = User::all();
         $jabatans = jabatan::all();
@@ -55,28 +51,25 @@ class LemburPegawaiController extends Controller
     public function store(Request $request)
     {  
         $kategori_lembur = kategori_lembur::all();
-        
+        $now = Carbon::now();
         $lembur_pegawai = Request::all();
         $rules = ['pegawai_id' => 'required',
-                  'jumlah_jam' => 'required|numeric',
-                  'jumlah_jam' => 'required|numeric|min:1'];
+                  'jumlah_jam' => 'required|numeric'];
         $sms = ['pegawai_id.required' => 'Harus Diisi',
                 'jumlah_jam.required' => 'Harus Diisi',
-                'jumlah_jam.numeric' => 'Harus Angka',
-                'jumlah_jam.min' => 'Angka Tidak Valid',
-                ];
+                'jumlah_jam.numeric' => 'Harus Angka'];
         $valid=Validator::make(Input::all(),$rules,$sms);
         if ($valid->fails()) {
 
-            alert()->error('Data Gagal Disimpan !!!');  
+            alert()->error('Data Salah');  
             return redirect('lemburpegawai/create')
             ->withErrors($valid)
             ->withInput();
         }
         else
         {
-        alert()->success('Data Berhasil Disimpan');
-        $pegawai = Pegawai::where('id',$lembur_pegawai['pegawai_id'])->first();
+
+        $pegawai = pegawai::where('id',$lembur_pegawai['pegawai_id'])->first();
         $check = kategori_lembur::where('jabatan_id',$pegawai->jabatan_id)->where('golongan_id',$pegawai->golongan_id)->first();
         if(!isset($check)){
             $pegawai = pegawai::with('User')->get();
@@ -84,8 +77,22 @@ class LemburPegawaiController extends Controller
             // dd($error_klnf);
             return view('lemburpegawai.create',compact('kategori_lembur','pegawai','missing_count'));
         }
+
+         $pegawai1 = pegawai::where('id',$lembur_pegawai['pegawai_id'])->first();
+         $lembur_pegawai1 = lembur_pegawai::where('pegawai_id', $pegawai1->id)->first();
+         // dd($lembur_pegawai1->created_at);
+            if(isset($lembur_pegawai1->id))
+            {
+            if($lembur_pegawai1->created_at->day==$now->day)
+            {
+
+                return redirect('lemburpegawai/create'.'?errors_match');
+            }
+            }
+
+        alert()->success('Data Tersimpan');
         $lembur_pegawai['kode_lembur_id'] = $check->id;
-         // dd($lembur_pegawai);
+        
         lembur_pegawai::create($lembur_pegawai);
         }
         return redirect('lemburpegawai');
@@ -110,11 +117,10 @@ class LemburPegawaiController extends Controller
      */
     public function edit($id)
     {
-        //
-        $lemburpegawai=lembur_pegawai::find($id);
-        $kategorilembur=kategori_lembur::all();
-        $pegawai=pegawai::all();
-        return view('lemburpegawai.edit',compact('lemburpegawai','kategorilembur','pegawai')) ;
+        $lembur_pegawai = lembur_pegawai::with('kategori_lembur')->get();
+        $users = User::all();
+        $lembur_pegawai=lembur_pegawai::find($id);
+        return view('lemburpegawai.edit',compact('lembur_pegawai','pegawai','users'));
     }
 
     /**
@@ -126,7 +132,6 @@ class LemburPegawaiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
         $update = Request::all();
             $lemburpegawai=lembur_pegawai::find($id);
             $lemburpegawai->update($update);

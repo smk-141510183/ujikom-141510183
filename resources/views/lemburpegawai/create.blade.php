@@ -11,7 +11,7 @@
                                     <select type="text" name="pegawai_id" class="form-control">
                                     <option value="">Pilih</option>
                                     @foreach($pegawai as $data)
-                                    <option value="{!! $data->id !!}">{!! $data->nip !!}_{!! $data->User->name !!}_{!! $data->jabatan->nama_jabatan !!}</option>
+                                    <option value="{!! $data->id !!}">{!! $data->nip !!}_{!! $data->User->name !!}</option>
                                     @endforeach
                                     </select>
                                     @if ($errors->has('pegawai_id'))
@@ -19,9 +19,14 @@
                                             <strong>{{ $errors->first('pegawai_id') }}</strong>
                                         </span>
                                     @endif
-                                    @if (isset($missing_count))
+                                    @if (isset($_GET['errors_match']))
+                            <span class="help-block">
+                                    <strong style="width: 100%;color: red;text-align: center;">Pegawai sudah melakukan penggajian bulan ini</strong>
+                            </span>
+                            @endif
+                            @if (isset($missing_count))
                             <div style="width: 100%;color: red;text-align: center;">
-                                Tidak Memiliki Kategori Lembur<a href="{{url('kategorilembur/create')}}"> KLIK DISINI </a>
+                                Pegawai ini tidak memiliki kategori lembur, silahkan untuk membuat kategori <a href="{{url('kategorilembur/create')}}">disini</a>
                             </div>
                             @endif
                                 </div>
@@ -35,7 +40,6 @@
                                             <strong>{{ $errors->first('jumlah_jam') }}</strong>
                                         </span>
                                     @endif
-                                    
                                 </div>
                     </div>
                     <div class="form-group">

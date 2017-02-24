@@ -9,7 +9,7 @@
                 <input name="_method" type="hidden" value="PATCH">
                     {{csrf_field()}}
                     <div class="form-group{{ $errors->has('petugas_penerima') ? ' has-error' : '' }}">
-                            <label for="petugas_penerima" class="col-md-3 control-label"> Petugas :</label>
+                            <label for="petugas_penerima" class="col-md-3 control-label"> Petugas Penerima:</label>
                                 <div class="col-md-6">
                                     {!! Form::text('petugas_penerima',Auth::user()->name,['class'=>'form-control','disabled']) !!}
                                     {!! Form::hidden('petugas_penerima',Auth::user()->name,['class'=>'form-control']) !!}
