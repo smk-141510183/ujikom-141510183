@@ -54,16 +54,18 @@ class TunjanganPegawaiController extends Controller
         $sms = ['pegawai_id.unique' => 'Data Sudah Ada Tidak Boleh Sama',
                 'pegawai_id.required' => 'Harus Diisi',];
         $valid=Validator::make(Input::all(),$rules,$sms);
-        if ($valid->fails()) 
-        {
-            alert()->error('Data Belum Disimpan !!!');  
+        if ($valid->fails()) {
+
+            alert()->error('Data Salah');  
             return redirect('tunjanganpegawai/create')
             ->withErrors($valid)
             ->withInput();
         }
         else
         {
-        alert()->success('Data Berhasil Disimpan');
+
+
+        
         $pegawai = pegawai::where('id',$tunjangan_pegawai['pegawai_id'])->first();
         $check = tunjangan::where('jabatan_id',$pegawai->jabatan_id)->where('golongan_id',$pegawai->golongan_id)->first();
         if(!isset($check)){
@@ -73,6 +75,7 @@ class TunjanganPegawaiController extends Controller
             return view('tunjanganpegawai.create',compact('tunjangan_pegawai','pegawai','missing_count'));
         }
         $tunjangan_pegawai['kode_tunjangan_id'] = $check->id;
+        alert()->success('Data Tersimpan');
         tunjangan_pegawai::create($tunjangan_pegawai);
         }
         return redirect('tunjanganpegawai');

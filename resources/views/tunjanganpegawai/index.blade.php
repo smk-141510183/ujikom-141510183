@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading" align="center">{{$page}}</div>
-                <a href="{{route('tunjanganpegawai.create')}}" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i></a>
+                <a href="{{route('tunjanganpegawai.create')}}" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
                 <div class="panel-body" align="center">
 					<div class="table-responsive ">
 						<table class="table">
@@ -16,7 +16,7 @@
 									<th>NIP Pegawai</th>		
 									<th>Nama Pegawai</th>
 									<th>Besar Tunjangan</th>
-									<th colspan="3"><center>Aksi</center></th>
+									<th colspan="3"><center>Opsi</center></th>
 								</tr>
 							</thead>
 							<?php
@@ -31,7 +31,6 @@
 									<td>{{$users->where('id',$data->pegawai->user_id)->first()->name}}</td>
 									<td>{{$data->tunjangan->besaran_uang}}</td>
 									<td align="right">
-                                    <a href="{{route('tunjanganpegawai.edit', $data->id)}}" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
                                 </td>
 
                                 <td >

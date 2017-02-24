@@ -221,8 +221,11 @@ $rules = [  'name' => 'required|max:255',
      */
     public function destroy($id)
     {
-        pegawai::find($id)->delete();
-        alert()->success('Data Terhapus');
+         $pegawai = pegawai::where('id',$id)->first();
+        $user = User::where('id',$pegawai->user_id)->first()->delete();
+        
+            alert()->success('Data Terhapus');
+        
         return redirect('pegawai');
     }
 }

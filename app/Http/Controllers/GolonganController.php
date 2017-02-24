@@ -14,10 +14,6 @@ class GolonganController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function __construct()
-    {
-        $this->middleware('SA');
-    }
     public function index()
     {
         $golongan = golongan::all();
@@ -44,27 +40,26 @@ class GolonganController extends Controller
     public function store(Request $request)
     {
         $rules=['kode_golongan'=>'required|unique:golongans',
-                'nama_golongan'=>'required',
-                'besaran_uang'=>'required|numeric',
-                'besaran_uang'=>'required|numeric|min:1'];
+                'nama_golongan'=>'required|unique:golongans',
+                'besaran_uang'=>'required|numeric|unique:golongans'];
         $sms=['kode_golongan.required'=>'Harus Di Isi',
                 'kode_golongan.unique'=>'Tidak Boleh Sama',
+                'nama_golongan.unique'=>'Tidak Boleh Sama',
+                'besaran_uang.unique'=>'Tidak Boleh Sama',
                 'nama_golongan.required'=>'Harus Di Isi',
                 'besaran_uang.required'=>'Harus Diisi',
-                'besaran_uang.numeric'=>'Harus Angka',
-                'besaran_uang.min'=>'Angka Tidak Valid'
-                ];
+                'besaran_uang.numeric'=>'Harus Angka'];
         $valid=Validator::make(Input::all(),$rules,$sms);
         if ($valid->fails()) {
 
-            alert()->error('Data Gagal Disimpan !!!');  
+            alert()->error('Data Salah');  
             return redirect('golongan/create')
             ->withErrors($valid)
             ->withInput();
         }
         else
         {
-        alert()->success('Data Berhasil Disimpan');
+        alert()->success('Data Tersimpan');
         $golongan=Request::all();
         golongan::create($golongan);
         return redirect('golongan');
@@ -90,7 +85,6 @@ class GolonganController extends Controller
      */
     public function edit($id)
     {
-        //
         $golongan=golongan::find($id);
         return view('golongan.edit',compact('golongan'));
     }
@@ -104,11 +98,58 @@ class GolonganController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        $update = Request::all();
-            $golongan=golongan::find($id);
-            $golongan->update($update);
-            return redirect('golongan');
+        $data=Request::all();
+        $kode_lama = golongan::where('id',$id)->first()->kode_golongan;
+        $nama_lama = golongan::where('id',$id)->first()->nama_golongan;
+        $uang_lama = golongan::where('id',$id)->first()->besaran_uang;
+        if($data['kode_golongan'] != $kode_lama)
+        {
+        $rules=['kode_golongan'=>'required|unique:golongans',
+                'nama_golongan'=>'required',
+                'besaran_uang'=>'required|numeric'];
+        
+        }
+        elseif ($data['nama_golongan'] != $nama_lama)
+        {
+            $rules=['kode_golongan'=>'required',
+                'nama_golongan'=>'required|unique:golongans',
+                'besaran_uang'=>'required|numeric'];
+        }
+        elseif ($data['besaran_uang'] != $uang_lama)
+        {
+            $rules=['kode_golongan'=>'required',
+                'nama_golongan'=>'required',
+                'besaran_uang'=>'required|numeric|unique:golongans'];
+        }  
+        else
+        {
+            $rules=['kode_golongan'=>'required',
+                    'nama_golongan'=>'required',
+                    'besaran_uang'=>'required|numeric'];
+        }
+        $sms=['kode_golongan.required'=>'Harus Di Isi',
+                'nama_golongan.unique'=> 'Nama '.$data['nama_golongan'].' Sudah ada',
+                'kode_golongan.unique'=>'Kode '.$data['kode_golongan'].' Sudah ada',
+                'besaran_uang.unique'=>'Besaran Uang '.$data['besaran_uang'].' Sudah ada',
+                'nama_golongan.required'=>'Harus Di Isi',
+                'besaran_uang.required'=>'Harus Diisi',
+                'besaran_uang.numeric'=>'Harus Angka'];
+        $valid=Validator::make(Input::all(),$rules,$sms);
+        if ($valid->fails()) {
+            alert()->error('Data Salah');  
+            return redirect('golongan/'.$id.'/edit')
+            ->withErrors($valid)
+            ->withInput();
+        }
+        else
+        {
+            golongan::where('id', $id)->first()->update([
+            'kode_golongan'=> $data['kode_golongan'],
+            'nama_golongan'=> $data['nama_golongan'],
+            'besaran_uang'=> $data['besaran_uang']
+            ]);
+        }
+        return redirect('golongan');
     }
 
     /**

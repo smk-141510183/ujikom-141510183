@@ -67,6 +67,12 @@ class PenggajianController extends Controller
         $now = Carbon::now();
             $kode_tunjangan_id = tunjangan_pegawai::where('pegawai_id', $penggajian['pegawai_id'])->first();
             $tunjangan_pegawai = tunjangan_pegawai::where('pegawai_id',$penggajian['pegawai_id'])->first();
+    // $hari = cal_days_in_month($now->day,$now->month, $now->year);
+    //     dd($hari); 
+
+        $user = $penggajian['pegawai_id'];
+
+         $lembur_pegawai1 = lembur_pegawai::where('pegawai_id', $user)->first();
     if($tunjangan_pegawai==null)
         {
             $missing_count=true;
@@ -77,20 +83,28 @@ class PenggajianController extends Controller
         else
         {
             $penggajian1 = penggajian::where('tunjangan_pegawai_id', $kode_tunjangan_id->id)->first();
+            $jumlah_hari = $now->daysInMonth;
+            // if($penggajian1->created_at->day<=$jumlah_hari && $penggajian1->created_at->month==$now->month)
+            // {
+            //     dd('success');
+            // }
+            // else
+            // {
+            //     dd('Failed');
+            // }
             if(isset($penggajian1->id))
             {
             if($penggajian1->created_at->month==$now->month)
             {
+
                 return redirect('penggajian/create'.'?errors_match');
             }
             }
-        $user = $penggajian['pegawai_id'];
+
         $jumlah_jam_lembur = DB::table('lembur_pegawais')
         ->where('lembur_pegawais.pegawai_id', '=', $user)
         ->sum('lembur_pegawais.jumlah_jam');
-        
-        
-        
+               
         $pegawai = pegawai::where('id',$penggajian['pegawai_id'])->first();
         $kategori_lembur = kategori_lembur::where('jabatan_id',$pegawai->jabatan_id)->where('golongan_id',$pegawai->golongan_id)->first();
         $jabatan = jabatan::where('id',$pegawai->jabatan_id)->first();
