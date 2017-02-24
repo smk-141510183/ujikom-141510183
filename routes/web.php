@@ -11,14 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-	if ( Auth::user()) {
-    return view('Backend');
-	}
-	else {
-		return view('/auth/login');
-	}
-});
+// Route::get('/', function () {
+// 	if ( Auth::user()) {
+//     return view('Backend');
+// 	}
+// 	else {
+// 		return view('/auth/login');
+// 	}
+// });
 
 
 
@@ -46,10 +46,10 @@ Route::resource('penggajian','PenggajianController');
 //     });
 // });
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+// Route::get('/home', 'HomeController@index');
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+// Route::get('/home', 'HomeController@index');

@@ -38,7 +38,7 @@ class ApiController extends Controller
     	$input = $request->all();
     	if (!$token = JWTAuth::attempt($input)) {
             $response["error"] = TRUE;
-            $response["error_msg"] = "Wrong email or password. Please !";
+            $response["error_msg"] = "Email dan Password yang anda masukan salah !";
             // return response()->json(['result' => 'wrong email or password.']);
             return ($response);
         }
@@ -52,16 +52,16 @@ class ApiController extends Controller
                                 'users.email as email', 
                                 'users.created_at as created_at', 
                                 'users.permission as permission', 
-                                'pegawai.nip as nip',
-                                'pegawai.photo as photo', 
-                                'jabatan.nama_jabatan as jabatan', 
-                                'jabatan.besaran_uang as uangjabatan',
-                                'golongan.nama_golongan as golongan',
-                                'golongan.besaran_uang as uanggolongan',
+                                'pegawais.nip as nip',
+                                'pegawais.photo as photo', 
+                                'jabatans.nama_jabatan as jabatan', 
+                                'jabatans.besaran_uang as uangjabatan',
+                                'golongans.nama_golongan as golongan',
+                                'golongans.besaran_uang as uanggolongan',
                                 DB::raw('(jabatans.besaran_uang + golongans.besaran_uang) as gaji'))
-                    ->join('pegawais', 'pegawais.user_id', '=', 'user.id')
-                    ->join('jabatans', 'pegawais.jabatan_id', '=', 'jabatan.id')
-                    ->join('golongans', 'pegawais.golongan_id', '=', 'golongan.id')
+                    ->join('pegawais', 'pegawais.user_id', '=', 'users.id')
+                    ->join('jabatans', 'pegawais.jabatan_id', '=', 'jabatans.id')
+                    ->join('golongans', 'pegawais.golongan_id', '=', 'golongans.id')
                     // ->join('tunjangan_pegawais' , 'tunjangan_pegawais.kode_tunjangan_id', '=', 'tunjangans.id')
                     // ->join('tunjangans', 'tunjangans.id', '=', 'tunjangan_pegawais.kode_tunjangan_id')
                     ->where('users.id', $user->id)
