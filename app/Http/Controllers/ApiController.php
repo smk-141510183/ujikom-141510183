@@ -68,9 +68,9 @@ class ApiController extends Controller
                     ->firstorFail();
 
         // Get Photo
-        $img = asset("assets/image".$detail->photo);
+        $img = asset("image/".$detail->photo);
 
-        // JSON Output
+        // JSON Output0
         $response["error"] = FALSE;
         $response["uid"] = $detail["uid"];
         $response["user"]["photo"] = $img;
