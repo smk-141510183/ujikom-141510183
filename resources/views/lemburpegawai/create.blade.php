@@ -21,7 +21,7 @@
                                     @endif
                                     @if (isset($_GET['errors_match']))
                             <span class="help-block">
-                                    <strong style="width: 100%;color: red;text-align: center;">Pegawai sudah melakukan penggajian bulan ini</strong>
+                                    <strong style="width: 100%;color: red;text-align: center;">Pegawai sudah melakukan lembur hari ini</strong>
                             </span>
                             @endif
                             @if (isset($missing_count))
