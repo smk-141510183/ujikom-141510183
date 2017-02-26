@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.aa')
 @section('content')
 <title>Jabatan</title>
 <div class="col-md-6 col-md-offset-3">

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.aa')
 @section('content')
 <?php $page="Tabel Pegawai"?>
 <div align="right">

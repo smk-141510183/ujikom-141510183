@@ -1,6 +1,6 @@
 <?php $page = 'View Penggajian' ?>
 <?php $root = 'penggajian' ?>
-@extends('layouts.app')
+@extends('layouts.aa')
 
 @section('footer')
 <a href="{{url($root)}}">Penggajian</a> > <a href="{{url($root,$data->id)}}">View</a>

@@ -1,82 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" type="image/png" href="{{url('penggajian/img/profile.png')}}" />
     <title>UJIKOM</title>
 
-    <!-- Styles -->
-    <link href="{{url('/master/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-
-    <!-- MetisMenu CSS -->
-    <link href="{{url('/master/vendor/metisMenu/metisMenu.min.css')}}" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="{{url('/master/dist/css/sb-admin-2.css')}}" rel="stylesheet">
-
-    <!-- Morris Charts CSS -->
-    <link href="{{url('/master/vendor/morrisjs/morris.css')}}" rel="stylesheet">
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="{{url('/master/vendor/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
-    <link href="/sweetalert/sweetalert.css" rel="stylesheet">
-    <link href="/css/app.css" rel="stylesheet">
+    <!-- Theme CSS -->
+    <link href="css/agency.min.css" rel="stylesheet">
 
-    <!-- Scripts -->
-    <script>
-        window.Laravel = <?php echo json_encode([
-            'csrfToken' => csrf_token(),
-        ]); ?>
-    </script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js" integrity="sha384-0s5Pv64cNZJieYFkXYOTId2HMA2Lfb6q2nAcx2n0RTLUnCAoTTsS0nKEO27XyKcY" crossorigin="anonymous"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js" integrity="sha384-ZoaMbDF+4LeFxg6WdScQ9nnR1QC2MIRxA1O9KWEXQwns1G8UNyIEZIQidzb0T1fo" crossorigin="anonymous"></script>
+    <![endif]-->
+
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+<body id="page-top" class="index">
 
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/home') }}">
-                        UJIKOM 2017
-                    </a>
-                </div>
+    <!-- Navigation -->
+    <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">UJIKOM 2017</a>
+            </div>
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    @if (Auth::guest())
                             <li><a href="{{ url('/login') }}">Login</a></li>
                             
                         @else
-                        <li><a href="{{ url('/pegawai') }}">Pegawai</a></li>
-                        <li><a href="{{ url('/jabatan') }}">Jabatan</a></li>
-                        <li><a href="{{ url('/golongan') }}">Golongan</a></li>
-                        <li><a href="{{ url('/tunjangan') }}">Tunjangan</a></li>
-                        <li><a href="{{ url('/tunjanganpegawai') }}">Tunjangan Pegawai</a></li>
-                        <li><a href="{{ url('/kategorilembur') }}">K.Lembur</a></li>
-                        <li><a href="{{ url('/lemburpegawai') }}">L.Pegawai</a></li>
-                        <li><a href="{{ url('/penggajian') }}">Penggajian</a></li>
-                            <li class="dropdown">
+                        <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
@@ -96,44 +73,75 @@
                                 </ul>
                             </li>
                         @endif
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="intro-text">
+                @yield('content')
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright &copy; Chandra M Ramdani 2016</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li><a href="#"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline quicklinks">
+                        <li><a href="#">Privacy Policy</a>
+                        </li>
+                        <li><a href="#">Terms of Use</a>
+                        </li>
                     </ul>
                 </div>
             </div>
-        </nav>
+        </div>
+    </footer>
 
-        @yield('content')
-    </div>
+    <!-- Portfolio Modals -->
+    <!-- Use the modals below to showcase details about your portfolio projects! -->
 
-    <!-- Scripts -->
-    <script src="{{url('/master/vendor/jquery/jquery.min.js')}}"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="{{url('/master/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="{{url('/master/vendor/metisMenu/metisMenu.min.js')}}"></script>
-
-    <!-- Morris Charts JavaScript -->
-    <script src="{{url('/master/vendor/raphael/raphael.min.js')}}"></script>
-    <script src="{{url('/master/vendor/morrisjs/morris.min.js')}}"></script>
-    <script src="{{url('/master/data/morris-data.js')}}"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="{{url('/master/dist/js/sb-admin-2.js')}}"></script>
-    <script src="/sweetalert/sweetalert.min.js"></script>
-    <script src="js/jquery.js"></script>
+    <!-- Portfolio Modal 1 -->
     
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
 
-    <!-- Menu Toggle Script -->
-    <script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-    </script>
-    @include('sweet::alert')
-    <script src="/js/app.js"></script>
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js" integrity="sha384-mE6eXfrb8jxl0rzJDBRanYqgBxtJ6Unn4/1F7q4xRRyIw7Vdg9jP4ycT7x1iVsgb" crossorigin="anonymous"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/agency.min.js"></script>
+
 </body>
+
 </html>
